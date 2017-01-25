@@ -22,6 +22,7 @@ namespace jyzj.shouye.Winform
             this.keyboardHook.KeyDown += keyboardHook_KeyDown;
             this.keyboardHook.KeyUp += keyboardHook_KeyUp;
             this.keyboardHook.Start();
+            this.GetJYZJClientRect();
         }
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -47,8 +48,9 @@ namespace jyzj.shouye.Winform
             //MouseSimulator.Click(MouseButton.Left);
             //KeyboardSimulator.KeyPress(Keys.R);
 
-            // step 1: find window
-
+            // step 1: find window area
+            Rectangle rect = GetJYZJClientRect();
+            if (rect == Rectangle.Empty) { this.txtContent.AppendText("没有找到 九阴真经 游戏窗口！"); }
             // step 2: copy window to bitmap
 
             // step 3: find all ASDWJK
@@ -59,6 +61,16 @@ namespace jyzj.shouye.Winform
 
         }
 
-
+        Rectangle GetJYZJClientRect()
+        {
+            IntPtr intPtr = WindowsAPI.FindWindow("fxMain", null);
+            if (intPtr == IntPtr.Zero)
+            {
+                return Rectangle.Empty;
+            }
+            Rectangle empty = Rectangle.Empty;
+            WindowsAPI.GetWindowRect(intPtr, out empty);
+            return empty;
+        }
     }
 }
