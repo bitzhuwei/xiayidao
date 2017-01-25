@@ -16,6 +16,11 @@ namespace jyzj.shouye.Winform
             this.bitmap = bitmap;
             this.key = key;
         }
+
+        public override string ToString()
+        {
+            return this.key.ToString();
+        }
     }
 
 }

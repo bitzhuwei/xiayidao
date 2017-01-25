@@ -35,12 +35,12 @@ namespace jyzj.shouye.Winform
 
         private void InitASDWJK()
         {
-            this.bmpA = new Bitmap(@"ASDWJK\A.bmp");
-            this.bmpS = new Bitmap(@"ASDWJK\S.bmp");
-            this.bmpD = new Bitmap(@"ASDWJK\D.bmp");
-            this.bmpW = new Bitmap(@"ASDWJK\W.bmp");
-            this.bmpJ = new Bitmap(@"ASDWJK\J.bmp");
-            this.bmpK = new Bitmap(@"ASDWJK\K.bmp");
+            this.bmpA = new Bitmap(@"ASDWJK\A.png");
+            this.bmpS = new Bitmap(@"ASDWJK\S.png");
+            this.bmpD = new Bitmap(@"ASDWJK\D.png");
+            this.bmpW = new Bitmap(@"ASDWJK\W.png");
+            this.bmpJ = new Bitmap(@"ASDWJK\J.png");
+            this.bmpK = new Bitmap(@"ASDWJK\K.png");
             this.keyBitmapList = new List<KeyInfo>();
             this.keyBitmapList.Add(new KeyInfo(this.bmpA, Keys.A));
             this.keyBitmapList.Add(new KeyInfo(this.bmpS, Keys.S));
@@ -78,17 +78,19 @@ namespace jyzj.shouye.Winform
             Rectangle rect = GetJYZJClientRect();
             if (rect == Rectangle.Empty) { this.txtContent.AppendText("没有找到 九阴真经 游戏窗口！"); }
             // step 2: copy window to bitmap
-            var bigBitmap = new Bitmap(rect.Width, rect.Height);
+            var bigBitmap = new Bitmap(540, rect.Height / 2);
             {
                 var graphics = Graphics.FromImage(bigBitmap);
-                graphics.CopyFromScreen(rect.Location, Point.Empty, rect.Size);
+                graphics.CopyFromScreen(rect.X + rect.Width / 2, rect.Y + rect.Height / 2, 0, 0, new Size(540, rect.Height / 2));
                 graphics.Dispose();
             }
+            this.pictureBox1.BackgroundImage = bigBitmap;
             // step 3: find all ASDWJK
             var list = new List<Item>();
             foreach (KeyInfo keyBitmap in this.keyBitmapList)
             {
-                foreach (Point location in FindAll(keyBitmap.bitmap, bigBitmap))
+                List<Point> locationList = BmpColor.FindPic(0, 0, bigBitmap.Width, bigBitmap.Height, bigBitmap, keyBitmap.bitmap, 40);
+                foreach (Point location in locationList)
                 {
                     list.Add(new Item(location, keyBitmap));
                 }
@@ -114,7 +116,14 @@ namespace jyzj.shouye.Winform
             // step 5: press keys
             foreach (Item item in list)
             {
-                KeyboardSimulator.KeyPress(item.keyInfo.key);
+                //KeyboardSimulator.KeyPress(item.keyInfo.key);
+                this.txtContent.AppendText(string.Format("{0}: {1}, {2}", DateTime.Now, item.keyInfo, item.location));
+                this.txtContent.AppendText(Environment.NewLine);
+            }
+            if (list.Count == 0)
+            {
+                this.txtContent.AppendText(string.Format("{0}: nothing found", DateTime.Now));
+                this.txtContent.AppendText(Environment.NewLine);
             }
         }
 
@@ -132,9 +141,9 @@ namespace jyzj.shouye.Winform
 
         IEnumerable<Point> FindAll(Bitmap target, Bitmap bigPicture)
         {
-            for (int x = 0; x < bigPicture.Width - target.Width; x++)
+            for (int x = 0; x <= bigPicture.Width - target.Width; x++)
             {
-                for (int y = 0; y < bigPicture.Height - target.Height; y++)
+                for (int y = 0; y <= bigPicture.Height - target.Height; y++)
                 {
                     if (IsSame(target, bigPicture, x, y))
                     {
