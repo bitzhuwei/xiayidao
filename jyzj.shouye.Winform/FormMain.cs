@@ -20,6 +20,7 @@ namespace jyzj.shouye.Winform
         private Bitmap bmpW;
         private Bitmap bmpJ;
         private Bitmap bmpK;
+        private List<Bitmap> keyList;
 
         public FormMain()
         {
@@ -40,6 +41,7 @@ namespace jyzj.shouye.Winform
             this.bmpW = new Bitmap(@"ASDWJK\W.bmp");
             this.bmpJ = new Bitmap(@"ASDWJK\J.bmp");
             this.bmpK = new Bitmap(@"ASDWJK\K.bmp");
+            this.keyList = new List<Bitmap>() { this.bmpA, this.bmpS, this.bmpD, this.bmpW, this.bmpJ, this.bmpK, };
         }
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -76,7 +78,7 @@ namespace jyzj.shouye.Winform
                 graphics.Dispose();
             }
             // step 3: find all ASDWJK
-
+            var list = new List<Item>();
 
             // step 4: arrange in left-to-right order
 
@@ -96,4 +98,5 @@ namespace jyzj.shouye.Winform
             return empty;
         }
     }
+
 }
