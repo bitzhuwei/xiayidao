@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,12 +36,12 @@ namespace jyzj.shouye.Winform
 
         private void InitASDWJK()
         {
-            this.bmpA = new Bitmap(@"ASDWJK\A.png");
-            this.bmpS = new Bitmap(@"ASDWJK\S.png");
-            this.bmpD = new Bitmap(@"ASDWJK\D.png");
-            this.bmpW = new Bitmap(@"ASDWJK\W.png");
-            this.bmpJ = new Bitmap(@"ASDWJK\J.png");
-            this.bmpK = new Bitmap(@"ASDWJK\K.png");
+            this.bmpA = new Bitmap(@"ASDWJK\A.bmp");
+            this.bmpS = new Bitmap(@"ASDWJK\S.bmp");
+            this.bmpD = new Bitmap(@"ASDWJK\D.bmp");
+            this.bmpW = new Bitmap(@"ASDWJK\W.bmp");
+            this.bmpJ = new Bitmap(@"ASDWJK\J.bmp");
+            this.bmpK = new Bitmap(@"ASDWJK\K.bmp");
             this.keyBitmapList = new List<KeyInfo>();
             this.keyBitmapList.Add(new KeyInfo(this.bmpA, Keys.A));
             this.keyBitmapList.Add(new KeyInfo(this.bmpS, Keys.S));
@@ -78,7 +79,7 @@ namespace jyzj.shouye.Winform
             Rectangle rect = GetJYZJClientRect();
             if (rect == Rectangle.Empty) { this.txtContent.AppendText("没有找到 九阴真经 游戏窗口！"); }
             // step 2: copy window to bitmap
-            var bigBitmap = new Bitmap(540, rect.Height / 2);
+            var bigBitmap = new Bitmap(540, rect.Height / 2, PixelFormat.Format24bppRgb);
             {
                 var graphics = Graphics.FromImage(bigBitmap);
                 graphics.CopyFromScreen(rect.X + rect.Width / 2, rect.Y + rect.Height / 2, 0, 0, new Size(540, rect.Height / 2));
