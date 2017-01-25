@@ -40,7 +40,6 @@ namespace jyzj.shouye.Winform
             this.btnStart.Text = this.timer1.Enabled ? "停止" : "开始";
         }
 
-        bool down = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
             MouseSimulator.Click(MouseButton.Left);
