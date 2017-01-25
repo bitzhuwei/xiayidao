@@ -78,9 +78,9 @@ namespace jyzj.shouye.Winform
             Rectangle rect = GetJYZJClientRect();
             if (rect == Rectangle.Empty) { this.txtContent.AppendText("没有找到 九阴真经 游戏窗口！"); }
             // step 2: copy window to bitmap
-            var bitmap = new Bitmap(rect.Width, rect.Height);
+            var bigBitmap = new Bitmap(rect.Width, rect.Height);
             {
-                var graphics = Graphics.FromImage(bitmap);
+                var graphics = Graphics.FromImage(bigBitmap);
                 graphics.CopyFromScreen(rect.Location, Point.Empty, rect.Size);
                 graphics.Dispose();
             }
@@ -88,7 +88,7 @@ namespace jyzj.shouye.Winform
             var list = new List<Item>();
             foreach (KeyInfo keyBitmap in this.keyBitmapList)
             {
-                foreach (Point location in FindAll(keyBitmap.bitmap, bitmap))
+                foreach (Point location in FindAll(keyBitmap.bitmap, bigBitmap))
                 {
                     list.Add(new Item(location, keyBitmap));
                 }
