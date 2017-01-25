@@ -52,8 +52,14 @@ namespace jyzj.shouye.Winform
             Rectangle rect = GetJYZJClientRect();
             if (rect == Rectangle.Empty) { this.txtContent.AppendText("没有找到 九阴真经 游戏窗口！"); }
             // step 2: copy window to bitmap
-
+            var bitmap = new Bitmap(rect.Width, rect.Height);
+            {
+                var graphics = Graphics.FromImage(bitmap);
+                graphics.CopyFromScreen(rect.Location, Point.Empty, rect.Size);
+                graphics.Dispose();
+            }
             // step 3: find all ASDWJK
+
 
             // step 4: arrange in left-to-right order
 
