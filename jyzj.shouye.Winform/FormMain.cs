@@ -20,7 +20,7 @@ namespace jyzj.shouye.Winform
         private Bitmap bmpW;
         private Bitmap bmpJ;
         private Bitmap bmpK;
-        private List<Bitmap> keyList;
+        private List<KeyInfo> keyBitmapList;
 
         public FormMain()
         {
@@ -41,7 +41,13 @@ namespace jyzj.shouye.Winform
             this.bmpW = new Bitmap(@"ASDWJK\W.bmp");
             this.bmpJ = new Bitmap(@"ASDWJK\J.bmp");
             this.bmpK = new Bitmap(@"ASDWJK\K.bmp");
-            this.keyList = new List<Bitmap>() { this.bmpA, this.bmpS, this.bmpD, this.bmpW, this.bmpJ, this.bmpK, };
+            this.keyBitmapList = new List<KeyInfo>();
+            this.keyBitmapList.Add(new KeyInfo(this.bmpA, Keys.A));
+            this.keyBitmapList.Add(new KeyInfo(this.bmpS, Keys.S));
+            this.keyBitmapList.Add(new KeyInfo(this.bmpD, Keys.D));
+            this.keyBitmapList.Add(new KeyInfo(this.bmpW, Keys.W));
+            this.keyBitmapList.Add(new KeyInfo(this.bmpJ, Keys.J));
+            this.keyBitmapList.Add(new KeyInfo(this.bmpK, Keys.K));
         }
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -58,8 +64,9 @@ namespace jyzj.shouye.Winform
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            this.timer1.Enabled = !this.timer1.Enabled;
+            //this.timer1.Enabled = !this.timer1.Enabled;
             this.btnStart.Text = this.timer1.Enabled ? "停止" : "开始";
+            timer1_Tick(sender, e);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -79,11 +86,36 @@ namespace jyzj.shouye.Winform
             }
             // step 3: find all ASDWJK
             var list = new List<Item>();
-
+            foreach (KeyInfo keyBitmap in this.keyBitmapList)
+            {
+                foreach (Point location in FindAll(keyBitmap.bitmap, bitmap))
+                {
+                    list.Add(new Item(location, keyBitmap));
+                }
+            }
             // step 4: arrange in left-to-right order
-
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                int p = i;
+                for (int j = i + 1; j < list.Count; j++)
+                {
+                    if (list[p].location.X > list[j].location.X)
+                    {
+                        p = j;
+                    }
+                }
+                if (p != i)
+                {
+                    Item tmp = list[i];
+                    list[i] = list[p];
+                    list[p] = tmp;
+                }
+            }
             // step 5: press keys
-
+            foreach (Item item in list)
+            {
+                KeyboardSimulator.KeyPress(item.keyInfo.key);
+            }
         }
 
         Rectangle GetJYZJClientRect()
@@ -96,6 +128,38 @@ namespace jyzj.shouye.Winform
             Rectangle empty = Rectangle.Empty;
             WindowsAPI.GetWindowRect(intPtr, out empty);
             return empty;
+        }
+
+        IEnumerable<Point> FindAll(Bitmap target, Bitmap bigPicture)
+        {
+            for (int x = 0; x < bigPicture.Width - target.Width; x++)
+            {
+                for (int y = 0; y < bigPicture.Height - target.Height; y++)
+                {
+                    if (IsSame(target, bigPicture, x, y))
+                    {
+                        yield return new Point(x, y);
+                    }
+                }
+            }
+        }
+
+        private bool IsSame(Bitmap target, Bitmap bigPicture, int firstX, int firstY)
+        {
+            for (int x = 0; x < target.Width; x++)
+            {
+                for (int y = 0; y < target.Height; y++)
+                {
+                    Color targetColor = target.GetPixel(x, y);
+                    Color bigPictureColor = bigPicture.GetPixel(x + firstX, y + firstY);
+                    if (targetColor != bigPictureColor)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 
