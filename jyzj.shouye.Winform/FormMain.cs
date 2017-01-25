@@ -14,6 +14,12 @@ namespace jyzj.shouye.Winform
     public partial class FormMain : Form
     {
         KeyboardHook keyboardHook;
+        private Bitmap bmpA;
+        private Bitmap bmpS;
+        private Bitmap bmpD;
+        private Bitmap bmpW;
+        private Bitmap bmpJ;
+        private Bitmap bmpK;
 
         public FormMain()
         {
@@ -22,7 +28,18 @@ namespace jyzj.shouye.Winform
             this.keyboardHook.KeyDown += keyboardHook_KeyDown;
             this.keyboardHook.KeyUp += keyboardHook_KeyUp;
             this.keyboardHook.Start();
-            this.GetJYZJClientRect();
+
+            InitASDWJK();
+        }
+
+        private void InitASDWJK()
+        {
+            this.bmpA = new Bitmap(@"ASDWJK\A.bmp");
+            this.bmpS = new Bitmap(@"ASDWJK\S.bmp");
+            this.bmpD = new Bitmap(@"ASDWJK\D.bmp");
+            this.bmpW = new Bitmap(@"ASDWJK\W.bmp");
+            this.bmpJ = new Bitmap(@"ASDWJK\J.bmp");
+            this.bmpK = new Bitmap(@"ASDWJK\K.bmp");
         }
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
