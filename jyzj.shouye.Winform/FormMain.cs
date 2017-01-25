@@ -65,9 +65,9 @@ namespace jyzj.shouye.Winform
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            //this.timer1.Enabled = !this.timer1.Enabled;
+            this.timer1.Enabled = !this.timer1.Enabled;
             this.btnStart.Text = this.timer1.Enabled ? "停止" : "开始";
-            timer1_Tick(sender, e);
+            //timer1_Tick(sender, e);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -85,7 +85,6 @@ namespace jyzj.shouye.Winform
                 graphics.CopyFromScreen(rect.X + rect.Width / 2, rect.Y + rect.Height / 2, 0, 0, new Size(540, rect.Height / 2));
                 graphics.Dispose();
             }
-            this.pictureBox1.BackgroundImage = bigBitmap;
             // step 3: find all ASDWJK
             var list = new List<Item>();
             foreach (KeyInfo keyBitmap in this.keyBitmapList)
@@ -115,20 +114,17 @@ namespace jyzj.shouye.Winform
                 }
             }
             // step 5: press keys
+            if (list.Count > 0)
+            {
+                this.pictureBox1.BackgroundImage = bigBitmap;
+                this.txtContent.AppendText(Environment.NewLine);
+            }
             foreach (Item item in list)
             {
-                //KeyboardSimulator.KeyPress(item.keyInfo.key);
+                KeyboardSimulator.KeyPress(item.keyInfo.key);
                 this.txtContent.AppendText(string.Format("{0}: {1}, {2}", DateTime.Now, item.keyInfo, item.location));
                 this.txtContent.AppendText(Environment.NewLine);
             }
-            if (list.Count == 0)
-            {
-                this.txtContent.AppendText(string.Format("{0}: nothing found", DateTime.Now));
-                this.txtContent.AppendText(Environment.NewLine);
-            }
-
-            this.txtContent.AppendText(Environment.NewLine);
-
         }
 
         Rectangle GetJYZJClientRect()
