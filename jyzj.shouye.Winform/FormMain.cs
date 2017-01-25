@@ -126,6 +126,9 @@ namespace jyzj.shouye.Winform
                 this.txtContent.AppendText(string.Format("{0}: nothing found", DateTime.Now));
                 this.txtContent.AppendText(Environment.NewLine);
             }
+
+            this.txtContent.AppendText(Environment.NewLine);
+
         }
 
         Rectangle GetJYZJClientRect()
