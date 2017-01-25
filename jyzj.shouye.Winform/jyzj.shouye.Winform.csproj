@@ -77,6 +77,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmileWei.CursorInfo\SmileWei.CursorInfo.csproj">
+      <Project>{70183fe3-5a75-4225-bbf5-7613feb1c0f8}</Project>
+      <Name>SmileWei.CursorInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmileWei.MouseKeyboardHook\SmileWei.MouseKeyboardHook.csproj">
+      <Project>{4806fb1e-42a1-4a40-84b0-b5529be441ce}</Project>
+      <Name>SmileWei.MouseKeyboardHook</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

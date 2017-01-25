@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtContent = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // txtContent
@@ -52,6 +54,12 @@
             this.btnStart.TabIndex = 1;
             this.btnStart.Text = "开始";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormMain
             // 
@@ -71,5 +79,6 @@
 
         private System.Windows.Forms.TextBox txtContent;
         private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Timer timer1;
     }
 }

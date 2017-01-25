@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmileWei.MouseKeyboardHook;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,40 @@ namespace jyzj.shouye.Winform
 {
     public partial class FormMain : Form
     {
+        KeyboardHook keyboardHook;
+
         public FormMain()
         {
             InitializeComponent();
+            this.keyboardHook = new KeyboardHook();
+            this.keyboardHook.KeyDown += keyboardHook_KeyDown;
+            this.keyboardHook.KeyUp += keyboardHook_KeyUp;
+            this.keyboardHook.Start();
         }
+
+        void keyboardHook_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.txtContent.AppendText(string.Format("{0}: {1} Up", DateTime.Now, e.KeyCode));
+        }
+
+        void keyboardHook_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.txtContent.AppendText(string.Format("{0}: {1} Down", DateTime.Now, e.KeyCode));
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            this.timer1.Enabled = !this.timer1.Enabled;
+            this.btnStart.Text = this.timer1.Enabled ? "停止" : "开始";
+        }
+
+        bool down = false;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            MouseSimulator.Click(MouseButton.Left);
+            //KeyboardSimulator.KeyPress(Keys.R);
+        }
+
+
     }
 }
