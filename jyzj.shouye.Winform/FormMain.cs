@@ -114,6 +114,13 @@ namespace jyzj.shouye.Winform
                 }
             }
             // step 5: press keys
+            foreach (Item item in list)
+            {
+                KeyboardSimulator.KeyPress(item.keyInfo.key);
+                this.txtContent.AppendText(string.Format("{0}: {1}, {2}", DateTime.Now, item.keyInfo, item.location));
+                this.txtContent.AppendText(Environment.NewLine);
+            }
+
             if (list.Count > 0)
             {
                 Image original = this.pictureBox1.BackgroundImage;
@@ -122,12 +129,11 @@ namespace jyzj.shouye.Winform
                 if (this.txtContent.Lines.Length > 1000) { this.txtContent.Clear(); }
                 this.txtContent.AppendText(Environment.NewLine);
             }
-            foreach (Item item in list)
+            else
             {
-                KeyboardSimulator.KeyPress(item.keyInfo.key);
-                this.txtContent.AppendText(string.Format("{0}: {1}, {2}", DateTime.Now, item.keyInfo, item.location));
-                this.txtContent.AppendText(Environment.NewLine);
+                bigBitmap.Dispose();
             }
+
         }
 
         Rectangle GetJYZJClientRect()
