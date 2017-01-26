@@ -27,9 +27,9 @@ namespace jyzj.shouye.Winform
         {
             InitializeComponent();
             this.keyboardHook = new KeyboardHook();
-            this.keyboardHook.KeyDown += keyboardHook_KeyDown;
-            this.keyboardHook.KeyUp += keyboardHook_KeyUp;
-            this.keyboardHook.Start();
+            //this.keyboardHook.KeyDown += keyboardHook_KeyDown;
+            //this.keyboardHook.KeyUp += keyboardHook_KeyUp;
+            //this.keyboardHook.Start();
 
             InitASDWJK();
         }
@@ -142,37 +142,6 @@ namespace jyzj.shouye.Winform
             return empty;
         }
 
-        IEnumerable<Point> FindAll(Bitmap target, Bitmap bigPicture)
-        {
-            for (int x = 0; x <= bigPicture.Width - target.Width; x++)
-            {
-                for (int y = 0; y <= bigPicture.Height - target.Height; y++)
-                {
-                    if (IsSame(target, bigPicture, x, y))
-                    {
-                        yield return new Point(x, y);
-                    }
-                }
-            }
-        }
-
-        private bool IsSame(Bitmap target, Bitmap bigPicture, int firstX, int firstY)
-        {
-            for (int x = 0; x < target.Width; x++)
-            {
-                for (int y = 0; y < target.Height; y++)
-                {
-                    Color targetColor = target.GetPixel(x, y);
-                    Color bigPictureColor = bigPicture.GetPixel(x + firstX, y + firstY);
-                    if (targetColor != bigPictureColor)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
     }
 
 }
