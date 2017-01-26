@@ -116,7 +116,10 @@ namespace jyzj.shouye.Winform
             // step 5: press keys
             if (list.Count > 0)
             {
+                Image original = this.pictureBox1.BackgroundImage;
                 this.pictureBox1.BackgroundImage = bigBitmap;
+                if (original != null) { original.Dispose(); }
+                if (this.txtContent.Lines.Length > 1000) { this.txtContent.Clear(); }
                 this.txtContent.AppendText(Environment.NewLine);
             }
             foreach (Item item in list)
