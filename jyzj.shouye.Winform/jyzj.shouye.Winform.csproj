@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>jyzj.shouye.Winform</RootNamespace>
     <AssemblyName>jyzj.shouye.Winform</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,7 +38,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -68,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -81,16 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SmileWei.CursorInfo\SmileWei.CursorInfo.csproj">
-      <Project>{70183fe3-5a75-4225-bbf5-7613feb1c0f8}</Project>
-      <Name>SmileWei.CursorInfo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SmileWei.MouseKeyboardHook\SmileWei.MouseKeyboardHook.csproj">
-      <Project>{4806fb1e-42a1-4a40-84b0-b5529be441ce}</Project>
-      <Name>SmileWei.MouseKeyboardHook</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ASDWJK\A.bmp">
@@ -111,6 +102,12 @@
     <Content Include="ASDWJK\W.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmileWei.MouseKeyboardHook\SmileWei.MouseKeyboardHook.csproj">
+      <Project>{4806fb1e-42a1-4a40-84b0-b5529be441ce}</Project>
+      <Name>SmileWei.MouseKeyboardHook</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

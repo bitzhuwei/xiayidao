@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace jyzj.shouye.Winform
@@ -146,6 +145,11 @@ namespace jyzj.shouye.Winform
             Rectangle empty = Rectangle.Empty;
             WindowsAPI.GetWindowRect(intPtr, out empty);
             return empty;
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            this.btnStart_Click(sender, e);
         }
 
     }

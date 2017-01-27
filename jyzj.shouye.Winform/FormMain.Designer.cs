@@ -84,6 +84,7 @@
             this.Controls.Add(this.txtContent);
             this.Name = "FormMain";
             this.Text = "九阴真经 授业 团练 助手";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
