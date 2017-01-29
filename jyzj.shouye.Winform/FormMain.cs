@@ -13,7 +13,6 @@ namespace jyzj.shouye.Winform
 {
     public partial class FormMain : Form
     {
-        KeyboardHook keyboardHook;
         private Bitmap bmpA;
         private Bitmap bmpS;
         private Bitmap bmpD;
@@ -25,12 +24,43 @@ namespace jyzj.shouye.Winform
         public FormMain()
         {
             InitializeComponent();
-            this.keyboardHook = new KeyboardHook();
-            //this.keyboardHook.KeyDown += keyboardHook_KeyDown;
-            //this.keyboardHook.KeyUp += keyboardHook_KeyUp;
-            //this.keyboardHook.Start();
+            // test mouse and keyboard hooks:
+            //var keyboardHook = new KeyboardHook();
+            //keyboardHook.KeyDown += keyboardHook_KeyDown;
+            //keyboardHook.KeyUp += keyboardHook_KeyUp;
+            //keyboardHook.Start();
+            //var mouseHook = new MouseHook();
+            //mouseHook.MouseMove += mouseHook_MouseMove;
+            //mouseHook.MouseDown += mouseHook_MouseDown;
+            //mouseHook.MouseUp += mouseHook_MouseUp;
+            //mouseHook.MouseWheel += mouseHook_MouseWheel;
+            //mouseHook.Start();
 
             InitASDWJK();
+        }
+
+        void mouseHook_MouseWheel(object sender, MouseEventArgs e)
+        {
+            this.txtContent.AppendText(string.Format("{0}: {1} Mouse Wheel", DateTime.Now, e.Delta));
+            this.txtContent.AppendText(Environment.NewLine);
+        }
+
+        void mouseHook_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.txtContent.AppendText(string.Format("{0}: {1} Mouse Up", DateTime.Now, e.Button));
+            this.txtContent.AppendText(Environment.NewLine);
+        }
+
+        void mouseHook_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.txtContent.AppendText(string.Format("{0}: {1} Mouse Down", DateTime.Now, e.Button));
+            this.txtContent.AppendText(Environment.NewLine);
+        }
+
+        void mouseHook_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.txtContent.AppendText(string.Format("{0}: {1} Mouse Move", DateTime.Now, e.Location));
+            this.txtContent.AppendText(Environment.NewLine);
         }
 
         private void InitASDWJK()
@@ -52,14 +82,14 @@ namespace jyzj.shouye.Winform
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
         {
-            // TODO: why not working ???
             this.txtContent.AppendText(string.Format("{0}: {1} Up", DateTime.Now, e.KeyCode));
+            this.txtContent.AppendText(Environment.NewLine);
         }
 
         void keyboardHook_KeyDown(object sender, KeyEventArgs e)
         {
-            // TODO: why not working ???
             this.txtContent.AppendText(string.Format("{0}: {1} Down", DateTime.Now, e.KeyCode));
+            this.txtContent.AppendText(Environment.NewLine);
         }
 
         private void btnStart_Click(object sender, EventArgs e)

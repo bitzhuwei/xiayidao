@@ -35,6 +35,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalHook.IDisposable.cs" />
     <Compile Include="GlobalHook.cs" />
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="KeyboardSimulator.cs" />
