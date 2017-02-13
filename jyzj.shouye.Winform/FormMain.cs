@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace jyzj.shouye.Winform
@@ -148,6 +149,7 @@ namespace jyzj.shouye.Winform
                 KeyboardSimulator.KeyPress(item.keyInfo.key);
                 this.txtContent.AppendText(string.Format("{0}: {1}, {2}", DateTime.Now, item.keyInfo, item.location));
                 this.txtContent.AppendText(Environment.NewLine);
+                Thread.Sleep(10);
             }
 
             if (list.Count > 0)
